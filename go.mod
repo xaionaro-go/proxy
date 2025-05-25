@@ -1,10 +1,12 @@
 module github.com/xaionaro-go/proxy
 
-go 1.22.2
+go 1.23.0
+
+toolchain go1.24.1
 
 require (
 	github.com/facebookincubator/go-belt v0.0.0-20240804203001-846c4409d41c
-	github.com/xaionaro-go/observability v0.0.0-20250111142240-5d72f17a6d12
+	github.com/xaionaro-go/observability v0.0.0-20250525144621-3a105745fa47
 )
 
 require (
@@ -25,6 +27,6 @@ require (
 	github.com/xaionaro-go/unsafetools v0.0.0-20241024014258-a46e1ce3763e // indirect
 	github.com/xaionaro-go/xsync v0.0.0-20250111141039-3e7f31b1a2c6 // indirect
 	golang.org/x/exp v0.0.0-20240823005443-9b4947da3948 // indirect
-	golang.org/x/sys v0.29.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
 	lukechampine.com/blake3 v1.3.0 // indirect
 )

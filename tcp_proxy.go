@@ -53,13 +53,13 @@ func (p *TCPProxy) ListenRandomPort(
 	ctx, cancelFunc := context.WithCancel(ctx)
 	p.stopListener = cancelFunc
 	p.wg.Add(1)
-	observability.Go(ctx, func() {
+	observability.Go(ctx, func(ctx context.Context) {
 		defer p.wg.Done()
 		<-ctx.Done()
 		listener.Close()
 	})
 	p.wg.Add(1)
-	observability.Go(ctx, func() {
+	observability.Go(ctx, func(ctx context.Context) {
 		defer p.wg.Done()
 		err := p.serve(ctx, listener)
 		if err != nil {
@@ -83,7 +83,7 @@ func (p *TCPProxy) serve(
 		}
 
 		p.wg.Add(1)
-		observability.Go(ctx, func() {
+		observability.Go(ctx, func(ctx context.Context) {
 			defer p.wg.Done()
 			err := p.handleConnection(ctx, conn)
 			if err != nil {
@@ -138,7 +138,7 @@ func proxyConns(
 
 	var wg sync.WaitGroup
 	wg.Add(1)
-	observability.Go(ctx, func() {
+	observability.Go(ctx, func(ctx context.Context) {
 		defer wg.Done()
 		err := pipeConn(srcConn, dstConn)
 		if err != nil {
@@ -147,7 +147,7 @@ func proxyConns(
 		}
 	})
 	wg.Add(1)
-	observability.Go(ctx, func() {
+	observability.Go(ctx, func(ctx context.Context) {
 		defer wg.Done()
 		err := pipeConn(dstConn, srcConn)
 		if err != nil {
